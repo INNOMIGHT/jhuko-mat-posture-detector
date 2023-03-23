@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
+import axios from 'axios';
 import Webcam from 'react-webcam'
 const WebcamComponent = () => <Webcam />
 const videoConstraints = {
@@ -8,17 +9,30 @@ const videoConstraints = {
 }
 const Profile = () => {
   const [picture, setPicture] = useState('')
-  const webcamRef = React.useRef(null)
-  const capture = React.useCallback(() => {
-    const pictureSrc = webcamRef.current.getScreenshot()
-    //use this pictureSrc to save in folder
-    setPicture(pictureSrc)
-  })
+  const webcamRef = useRef(null)
+  const capture = async () => {
+    const pictureSrc = webcamRef.current.getScreenshot();
+    setPicture(pictureSrc);
+
+    const blob = await fetch(pictureSrc).then(res => res.blob());
+    const formData = new FormData();
+    formData.append('image', blob);
+    try {
+      const res = await axios.post('http://localhost:4000/image_upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log(res);
+    } catch (err) {
+      console.error(err);
+    }
+  }
   return (
     <div className='col-12 col-lg-5 align-item-center'>
 
-      <div class="row justify-content-center">
-        {picture == '' ? (
+      <div className="row justify-content-center">
+        {picture === '' ? (
           <Webcam
             audio={false}
             height={400}
@@ -31,7 +45,7 @@ const Profile = () => {
         )}
       </div> <br />
       <div className='row justify-content-center'>
-        {picture != '' ? (
+        {picture !== '' ? (
           <button
             onClick={(e) => {
               window.location.reload()
@@ -42,10 +56,7 @@ const Profile = () => {
           </button>
         ) : (
           <button
-            onClick={(e) => {
-              e.preventDefault()
-              capture()
-            }}
+            onClick={capture}
             className="btn btn-danger col-sm-3"
           >
             Capture

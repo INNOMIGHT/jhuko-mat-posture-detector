@@ -1,14 +1,15 @@
 const express = require('express');
 const multer = require('multer');
-
+const cors = require('cors');
 const app = express();
 
+app.use(cors());
 const fileStorageEngine = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, './uploads');
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '--' + file.originalname);
+        cb(null, "sitting_posture.jpeg");
     },
 });
 
@@ -22,6 +23,6 @@ app.post('/image_upload', upload.single('image'), (req, res) => {
     });
 });
 
-app.listen(3000, () => {
-    console.log('listening on port 3000');
+app.listen(4000, () => {
+    console.log('listening on port 4000');
 });
