@@ -5,9 +5,143 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('https://wallpapercave.com/wp/wp3556796.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+  --color-primary: #4f2396;
+  --color-divider: #080111;
+  --row-even: #ebf2d3;
+  --row-odd: #fffdff;
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 576px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+h1,
+h2,
+h3 {
+  line-height: 1.1;
+}
+
+main {
+  margin: 4.4rem auto;
+}
+
+.heading {
+  background-color: var(--color-primary);
+  min-height: 10vh;
+  padding: 1rem;
+}
+
+/* virtical line */
+.separator {
+  width: 2px;
+  height: 60vh;
+  margin-bottom: 10vh;
+  background-color: var(--color-divider);
+}
+
+/* horizontal line  */
+.divider {
+  background-color: var(--color-divider);
+  width: 100%;
+  height: 2px;
+}
+
+
+
+
+.enrolled-section {
+  max-height: 28rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.table-striped>tbody>tr:nth-child(even)>td {
+  background-color: var(--row-even);
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td {
+  background-color: var(--row-odd);
+}
+
+.table-bordered>thead>tr>th,
+.table-bordered>tbody>tr>td {
+  border: 2px solid #a0be44;
+}
+
+thead {
+  background-color: #a7c93f;
+}
+
+thead>tr>th,
+td {
+  padding: 0.25rem 0.5rem !important;
+}
+
+#table-data>tr {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+#table-data>tr>td:nth-child(even) {
+  width: 8.25rem !important;
+}
+
+img {
+  width: 110px;
+  min-height: 120px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+
+footer {
+  position: relative;
+  background-color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  bottom: 0;
+}
+
+label {
+  display: inline-block;
+  padding-right: 20px;
+}
+
+svg {
+  fill: var(--color-primary);
+  height: 10rem;
+  width: 10rem;
 }
