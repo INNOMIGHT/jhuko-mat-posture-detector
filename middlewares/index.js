@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require("axios");
 const multer = require('multer');
 const cors = require('cors');
 const app = express();
@@ -15,22 +16,28 @@ const fileStorageEngine = multer.diskStorage({
 
 const upload = multer({ storage: fileStorageEngine });
 
-app.post('/image_upload', upload.single('image'), (req, res) => {
-    console.log(req.file);
-    console.log('Image uploaded successfully');
-    const kerasResponse = callKeras();
+app.post('/image_upload', upload.single('image'), async (req, res) => {
+    console.log('Image uploaded successfully\n');
+    const kerasResponse = await callKeras();
+    console.log(kerasResponse);
     return res.status(200).json({
         message: "uploaded successfully",
         data: makeResponse(kerasResponse)
     });
+
 });
 
 function makeResponse(responseString) {
-
+    return responseString;
 }
 
-
-function callKeras() {
+async function callKeras() {
+    try {
+        const res = await axios.get('http://127.0.0.1:8000/api/v1');
+        return res.data;
+    } catch (err) {
+        return err;
+    }
 
 }
 
