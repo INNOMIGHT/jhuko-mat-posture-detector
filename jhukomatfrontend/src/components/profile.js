@@ -43,7 +43,7 @@ const Profile = () => {
     setSelectedFile(file);
   }
   function handleUploadButtonClick() {
-    setPicture(selectedFile);
+    setPicture(URL.createObjectURL(selectedFile));
     savePicture(selectedFile);
   }
 
